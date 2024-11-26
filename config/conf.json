@@ -1,0 +1,6 @@
+{
+    "port": 8080,
+    "serverRoot": "/var/www/html",
+    "errorLog": "/var/log/http-server/error.log",
+    "accessLog": "/var/log/http-server/access.log"
+}

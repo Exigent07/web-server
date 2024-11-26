@@ -10,16 +10,16 @@
  * @brief Enumeration for HTTP request methods.
  */
 enum METHOD {
-    GET,      /**< HTTP GET method */
-    POST,     /**< HTTP POST method */
-    PUT,      /**< HTTP PUT method */
-    DELETE,   /**< HTTP DELETE method */
-    PATCH,    /**< HTTP PATCH method */
-    OPTIONS,  /**< HTTP OPTIONS method */
-    HEAD,     /**< HTTP HEAD method */
-    TRACE,    /**< HTTP TRACE method */
-    CONNECT,  /**< HTTP CONNECT method */
-    UNKNOWN   /**< Unknown HTTP method */
+    GET,      /** HTTP GET method */
+    POST,     /** HTTP POST method */
+    PUT,      /** HTTP PUT method */
+    DELETE,   /** HTTP DELETE method */
+    PATCH,    /** HTTP PATCH method */
+    OPTIONS,  /** HTTP OPTIONS method */
+    HEAD,     /** HTTP HEAD method */
+    TRACE,    /** HTTP TRACE method */
+    CONNECT,  /** HTTP CONNECT method */
+    UNKNOWN   /** Unknown HTTP method */
 };
 
 /**
@@ -47,10 +47,10 @@ METHOD parseMethod(const std::string& method) {
  */
 class Request {
 private:
-    METHOD method;                                  /**< HTTP method of the request */
-    std::string uri;                                /**< URI of the request */
-    std::unordered_map<std::string, std::string> headers; /**< Headers of the request */
-    std::string body;                               /**< Body of the request */
+    METHOD method;                                  /** HTTP method of the request */
+    std::string uri;                                /** URI of the request */
+    std::unordered_map<std::string, std::string> headers; /** Headers of the request */
+    std::string body;                               /** Body of the request */
 
 public:
     /**
