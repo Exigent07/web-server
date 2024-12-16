@@ -176,6 +176,7 @@ void Server::startListening() {
 
         // Determine file path and send the file as response
         std::string filePath = serverRoot + request.getUri();
+        std::cout << "Trying: " << filePath;
         if (!response.sendFile(filePath)) {
             response.setStatusCode(404);
             response.setBody("404 Not Found");
