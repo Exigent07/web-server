@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Server Documentation</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #121212;
+            color: #E0E0E0;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1, h2, h3 {
+            color: #00B0FF;
+            text-align: center;
+            animation: fadeIn 2s ease-out;
+        }
+
+        p, ul, li {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        header {
+            background-color: #1e1e1e;
+            padding: 30px 0;
+            animation: slideIn 2s ease-out;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: white;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 30px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+            background-color: #2c2c2c;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 3s ease-out;
+        }
+
+        .section h2 {
+            font-size: 1.8rem;
+            color: #03A9F4;
+        }
+
+        .section ul {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+
+        .section ul li {
+            margin-bottom: 10px;
+        }
+
+        code {
+            display: block;
+            background-color: #333;
+            color: #FAFAFA;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+
+        .btn {
+            background-color: #00B0FF;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-align: center;
+            display: inline-block;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: scale(1.1);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            background-color: #1e1e1e;
+            color: #A1A1A1;
+            font-size: 1rem;
+            animation: fadeIn 2s ease-out;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            0% {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <h1>Web Server Documentation</h1>
+        </div>
+    </header>
+
+    <div class="container">
+        <section class="section">
+            <h2>Overview</h2>
+            <p>This is a simple HTTP server implemented in C++. The server listens for incoming HTTP requests, processes them,
+                and responds with appropriate HTTP responses. It supports serving static files from a specified root directory, parsing HTTP requests, and constructing HTTP responses.</p>
+        </section>
+
+        <section class="section">
+            <h2>Directory Structure</h2>
+            <pre><code>
+/home/exigent07/CPP/web-server/
+├── assets/                    # Root directory for serving files
+├── config/
+│   └── conf.json              # Configuration file for the server
+├── main.cpp                   # Main entry point for the server
+├── request.hpp                # Header file for handling HTTP requests
+├── response.hpp               # Header file for handling HTTP responses
+└── server.hpp                 # Header file for the server implementation
+            </code></pre>
+        </section>
+
+        <section class="section">
+            <h2>Configuration</h2>
+            <p>The server reads its configuration from a JSON file (<code>conf.json</code>). The configuration specifies the following parameters:</p>
+            <ul>
+                <li><strong>port</strong>: The port number the server listens on (default: 8080).</li>
+                <li><strong>serverRoot</strong>: The root directory for serving files (default: /home/exigent07/CPP/web-server/assets).</li>
+                <li><strong>errorLog</strong>: The file path for the error log (default: /var/log/http-server/error.log).</li>
+                <li><strong>accessLog</strong>: The file path for the access log (default: /var/log/http-server/access.log).</li>
+            </ul>
+            <h3>Example <code>conf.json</code></h3>
+            <pre><code>
+{
+    "port": 8080,
+    "serverRoot": "/home/exigent07/CPP/web-server/assets",
+    "errorLog": "/var/log/http-server/error.log",
+    "accessLog": "/var/log/http-server/access.log"
+}
+            </code></pre>
+        </section>
+
+        <section class="section">
+            <h2>Classes and Components</h2>
+            <h3>Request</h3>
+            <p>This class represents an HTTP request. It parses the incoming raw HTTP request string and extracts relevant information such as the HTTP method, URI, headers, and body.</p>
+            <ul>
+                <li><strong>Methods</strong>:
+                    <ul>
+                        <li><code>Request()</code>: Default constructor.</li>
+                        <li><code>Request(const std::string& rawRequest)</code>: Constructor that parses the provided raw HTTP request string.</li>
+                        <li><code>parse(const std::string& rawRequest)</code>: Parses the raw HTTP request string into method, URI, headers, and body.</li>
+                        <li><code>getMethod()</code>: Returns the HTTP method of the request.</li>
+                        <li><code>getUri()</code>: Returns the URI of the request.</li>
+                        <li><code>getHeaders()</code>: Returns the headers of the request.</li>
+                        <li><code>getBody()</code>: Returns the body of the request.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3>Response</h3>
+            <p>This class represents an HTTP response. It constructs the response based on the status code, headers, and body content. It also has the ability to send files as the response body.</p>
+            <ul>
+                <li><strong>Methods</strong>:
+                    <ul>
+                        <li><code>Response()</code>: Default constructor.</li>
+                        <li><code>setStatusCode(int code)</code>: Sets the HTTP status code and corresponding message.</li>
+                        <li><code>addHeader(const std::string& key, const std::string& value)</code>: Adds a header to the response.</li>
+                        <li><code>setBody(const std::string& responseBody)</code>: Sets the body of the response.</li>
+                        <li><code>toString()</code>: Converts the response to a properly formatted HTTP response string.</li>
+                        <li><code>sendFile(const std::string& filePath)</code>: Sends a file as the response body.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3>Server</h3>
+            <p>The <code>Server</code> class is responsible for setting up and running the HTTP server. It listens for incoming client requests, processes them, and sends the appropriate responses.</p>
+            <ul>
+                <li><strong>Methods</strong>:
+                    <ul>
+                        <li><code>Server(const std::string& configPath)</code>: Constructor that loads the configuration from the specified JSON file (default: /etc/http-server/conf.json).</li>
+                        <li><code>loadConfig(const std::string& configPath)</code>: Loads the server configuration from a JSON file.</li>
+                        <li><code>startListening()</code>: Starts the server, listens for incoming connections, and processes HTTP requests.</li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>Compilation and Usage</h2>
+            <ul>
+                <li><strong>Build the Project:</strong> To compile the project, use the following <code>g++</code> command:
+                    <pre><code>g++ -o web-server main.cpp server.cpp request.cpp response.cpp -ljsoncpp</code></pre>
+                </li>
+                <li><strong>Run the Server:</strong> You can run the server using:
+                    <pre><code>./web-server</code></pre>
+                </li>
+                <li><strong>Configuration:</strong> Modify the <code>conf.json</code> file to configure the server settings like the port, server root directory, and log files.</li>
+                <li><strong>Accessing the Server:</strong> Once the server is running, you can access it by navigating to <code>http://localhost:8080/</code> (or the port specified in the configuration file).</li>
+                <li><strong>Logs:</strong>
+                    <ul>
+                        <li><strong>Error Log:</strong> Logs server errors.</li>
+                        <li><strong>Access Log:</strong> Logs all incoming client requests.</li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+
+        <footer>
+            <p>&copy; 2024 Web Server Project | Documentation</p>
+        </footer>
+    </div>
+</body>
+
+</html>

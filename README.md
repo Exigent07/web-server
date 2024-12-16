@@ -71,9 +71,11 @@ The `Server` class is responsible for setting up and running the HTTP server. It
 
 1. **Build the Project**:
    To compile the project, use the following `g++` command:
-   ```bash
-   g++ -o web-server main.cpp server.cpp request.cpp response.cpp -ljsoncpp
-   ```
+    ```bash
+    git clone https://github.com/Exigent07/web-server.git
+    cd web-server/src
+    g++ -std=c++20 -I. main.cpp -ljsoncpp -o httpServer && ./httpServer
+    ```
 
 2. **Run the Server**:
    You can run the server using:
