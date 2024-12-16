@@ -5,7 +5,7 @@ This is a simple HTTP server implemented in C++. The server listens for incoming
 
 ## Directory Structure
 ```
-/home/exigent07/CPP/web-server/
+/your/path
 │
 ├── assets/                    # Root directory for serving files
 ├── config/
